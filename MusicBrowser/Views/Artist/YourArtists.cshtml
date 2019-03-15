@@ -1,0 +1,47 @@
+﻿@{
+
+    int sorting = 1;
+    int helper;
+    bool result = int.TryParse((Request["HowSorted"]), out helper);
+
+    if (result == true)
+    {
+        sorting = helper;
+    }
+
+}
+<h1>Your favourite artists</h1><br />
+
+
+@Html.Action("ArtistList", new { choice = sorting })
+<div>
+    <form action="" method="post">
+        <p>
+            <br />
+            <label for="text1">Sort By</label><br>
+            <input type="radio" name="HowSorted" value=1>A-Z<br>
+            <input type="radio" name="HowSorted" value=2>Z-A<br>
+            <input type="radio" name="HowSorted" value=3>Most listened<br><br>
+            <input id="HowSortedInput" type="submit" value="Ok">
+        </p>
+
+    </form>
+
+
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#inpp").click(function () {
+            $.get("@Html.Action("ArtistList", new { choice = 3} )", function (response) {
+                //response
+                $("#name").text(response.name);
+                $("#temp").text(response.main.temp);
+                $("#humidity").text(response.main.humidity);
+
+            });
+        });
+    });
+</script>

@@ -1,0 +1,27 @@
+﻿
+<h2>Weather in Paris right now</h2>
+
+<p id="name"></p>
+<p id="temp"></p>
+<p id="humidity"></p>
+
+<button>Get Weather</button>
+<script>
+    //Whenever you use jQuery to manipulate your web page,
+    //you wait until the document ready event has fired.
+    //The document ready event signals that the DOM of the page
+    //is now ready, so you can manipulate it without worrying
+    //that parts of the DOM has not yet been created.
+    //The document ready event fires before all images
+    //etc.are loaded, but after the whole DOM itself is ready
+    $(document).ready(function () {
+        $("button").click(function () {
+            $.get("@Url.Action("GetWeather","Weather" , new { city = "Paris" } )", function (response) {
+                //response
+                $("#name").text("city: " + response.name);
+                $("#temp").text("temperature: " + response.main.temp + "F");
+                $("#humidity").text("humidity: " + response.main.humidity + "%");
+            });
+        });
+    });
+</script>

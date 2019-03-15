@@ -1,0 +1,33 @@
+﻿<br />
+<input type="text" id="city" />
+
+<br />
+<br />
+
+<p id="name"></p>
+<p id="temp"></p>
+<p id="humidity"></p>
+
+
+<button>Search weather</button>
+
+
+<script>
+    $(document).ready(function () {
+        $("button").click(function () {
+            var city = search();
+            $.get("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=adf871fab3963fca2fa822af432e5c89&units=imperial", function (response) {
+                $("#name").text("city: " + response.name);
+                $("#temp").text("temperature: " + response.main.temp + "F");
+                $("#humidity").text("humidity: " + response.main.humidity +"%");
+
+            });
+        });
+    });
+
+
+    function search() {
+        return document.getElementById("city").value
+    }
+
+</script>

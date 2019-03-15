@@ -1,0 +1,74 @@
+﻿<br />
+<br />
+<input type="text" id="artistForm" />
+<button id="search-artist">Search artist</button>
+<div id="smth"></div>
+
+<button id="previous">previous</button>
+<button id="next">next</button>
+
+<script>
+    var pageNumber;
+
+    $(document).ready(function () {
+        $("#search-artist").click(function () {
+            pageNumber = 1;
+            listLogic(pageNumber)
+        })
+    });
+
+
+    $(document).ready(function () {
+        $("#next").click(function () {
+            pageNumber++;
+            listLogic(pageNumber)
+            console.log(pageNumber);
+        }
+        )
+    }
+    )
+
+
+    $(document).ready(function () {
+        $("#previous").click(function () {
+            pageNumber--;
+            listLogic(pageNumber);
+            console.log(pageNumber);
+        }
+        )
+    }
+    )
+
+
+    function listLogic(pageNumber) {
+        var artistName = searchAritst();
+        $("#smth").html("");
+        $.get("http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=" + artistName + " &api_key=fa1b419ee7f2e7b9799a173bb7cb6ea4&format=json&limit=10&page=" + pageNumber, function (response) {
+            var html = '';
+            var artists = response.results.artistmatches.artist;
+            var x = "ssssssssssss"
+            for (i = 0; i <= 9; i++) {
+                html += "<div onclick=getInfo(this) id= artist" + i + ">" + artists[i].name + "</div>";
+            }
+            document.getElementById("smth").innerHTML += html;
+
+
+        });
+    }
+
+
+    function searchAritst() {
+        return document.getElementById("artistForm").value
+    }
+
+
+    function getInfo(id) {
+        var a = this.innerHTML
+        console.log(id.innerHTML)
+    }
+
+    function setMyValue(value) {
+        $('#myVar').val("obiekt");
+    }
+
+</script>
